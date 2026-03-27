@@ -1,6 +1,7 @@
 "use server";
 
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/lib/auth";
 import { loginSchema, registerSchema } from "../validations/auth";
 import { createUser, AuthServiceException } from "../service/auth.service";
@@ -33,7 +34,6 @@ export async function login(
       password: parsed.data.password,
       redirect: false,
     });
-    return { success: true, data: undefined };
   } catch (err) {
     if (err instanceof AuthError) {
       switch (err.type) {
@@ -53,6 +53,7 @@ export async function login(
     }
     throw err;
   }
+  redirect("/mainpage");
 }
 
 export async function register(
@@ -86,14 +87,13 @@ export async function register(
       password: parsed.data.password,
       redirect: false,
     });
-
-    return { success: true, data: undefined };
   } catch (err) {
     if (err instanceof AuthServiceException) {
       return { success: false, error: err.message, code: err.code };
     }
     throw err;
   }
+  redirect("/dashboard");
 }
 
 export async function logout(): Promise<void> {

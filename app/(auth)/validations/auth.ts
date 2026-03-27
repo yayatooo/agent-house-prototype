@@ -15,7 +15,7 @@ export const registerSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
   fullNameVi: z.string().optional(),
   phone: z.string().optional(),
-  role: z.enum(["PROPERTY_OWNER", "SALES"]),
+  role: z.enum(["PROPERTY_OWNER", "SALES", "ADMINISTRATOR"]),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;

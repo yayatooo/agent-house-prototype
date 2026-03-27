@@ -28,6 +28,10 @@ export const usersRelations = relations(users, ({ one, many }) => ({
 
 export const propertiesRelations = relations(properties, ({ one, many }) => ({
   owner: one(users, { fields: [properties.ownerId], references: [users.id] }),
+  branch: one(branches, {
+    fields: [properties.branchId],
+    references: [branches.id],
+  }),
   rentalAgreements: many(rentalAgreements),
   purchaseAgreements: many(purchaseAgreements),
   installmentPlans: many(installmentPlans),

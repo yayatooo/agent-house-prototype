@@ -17,6 +17,7 @@ import {
   listingStatusEnum,
 } from "./enums";
 import { users } from "./users";
+import { branches } from "./branches";
 
 export const properties = pgTable("properties", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -54,6 +55,7 @@ export const properties = pgTable("properties", {
   ownerId: uuid("owner_id")
     .references(() => users.id)
     .notNull(),
+  branchId: uuid("branch_id").references(() => branches.id),
   approvedById: uuid("approved_by_id"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
